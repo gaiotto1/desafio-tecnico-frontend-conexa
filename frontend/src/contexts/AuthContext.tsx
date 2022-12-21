@@ -40,7 +40,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
 
       const { name, token } = response.data
 
-      setCookie(undefined, 'conexa.token', token, {
+      setCookie(undefined, 'conexaToken', token, {
         maxAge: 60 * 60 * 24 * 30, // 30 days
         path: '/',
       })
@@ -50,11 +50,9 @@ export function AuthProvider({ children }: AuthProviderProps) {
         email,
       })
 
-      localStorage.setItem('name', name)
+      localStorage.setItem('username', name)
 
       navigate('/')
-
-      console.log(response.data)
     } catch (err) {
       console.log(err)
     }

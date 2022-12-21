@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-// import { AuthContext } from '../../contexts/AuthContext'
+import { parseCookies } from 'nookies'
 
 import { api } from '../../services/api'
 
@@ -13,15 +13,24 @@ type Consultation = {
 }
 
 export function Home() {
+  const cookies = parseCookies()
   const [consultations, setConsultations] = useState([])
-  // const { user } = useContext(AuthContext)
-  const name = localStorage.getItem('name')
 
   const getConsultas = async () => {
-    const response = await api.get('/consultations?_expand=patient')
-    console.log('resp', response.data)
-
-    setConsultations(response.data)
+    await api
+      .get('/consultations?_expand=patient', {
+        headers: {
+          Authorization: `Bearer ${cookies.conexaToken}`,
+        },
+      })
+      .then((response) => {
+        console.log('resp', response.data)
+        setConsultations(response.data)
+      })
+      .catch((error) => {
+        console.log('error', error)
+        setConsultations([])
+      })
   }
 
   useEffect(() => {
@@ -30,12 +39,10 @@ export function Home() {
 
   return (
     <div>
-      <h1>{name}</h1>
-
       <h2>Consultas</h2>
 
       <ul>
-        {consultations.map((consultation: Consultation) => (
+        {consultations?.map((consultation: Consultation) => (
           <li key={consultation.id}>
             <p>
               {consultation.patient.first_name} {consultation.patient.last_name}

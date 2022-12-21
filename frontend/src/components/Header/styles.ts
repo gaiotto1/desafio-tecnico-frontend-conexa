@@ -13,5 +13,37 @@ export const Wrapper = styled.div`
   margin: 0 auto;
   display: flex;
   align-items: center;
-  justify-content: flex-start;
+  justify-content: space-between;
+
+  div {
+    display: flex;
+    align-items: center;
+  }
+
+  h1 {
+    font-size: 16px;
+    color: ${({ theme }) => theme.colors.grayDark};
+    font-weight: 400;
+    margin-right: 15px;
+
+    @media (max-width: ${({ theme }) => theme.sizes.mobile}) {
+      display: none;
+    }
+  }
+
+  button {
+    width: 57px;
+    height: 32px;
+    font-size: 12px;
+    color: ${({ theme }) => theme.colors.blue};
+    border: 2px solid ${({ theme }) => theme.colors.blue};
+    border-radius: 6px;
+    background-color: transparent;
+    transition: all 0.2s;
+
+    :hover {
+      background-color: ${({ theme }) => theme.colors.blue};
+      color: ${({ theme }) => theme.colors.white};
+    }
+  }
 `
