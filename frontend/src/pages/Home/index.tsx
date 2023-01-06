@@ -3,6 +3,8 @@ import { parseCookies } from 'nookies'
 
 import { api } from '../../services/api'
 
+import { Footer } from '../../components/Footer'
+
 type Consultation = {
   id: string
   date: string
@@ -54,6 +56,8 @@ export function Home() {
           </li>
         ))}
       </ul>
+
+      <Footer />
     </div>
   )
 }
